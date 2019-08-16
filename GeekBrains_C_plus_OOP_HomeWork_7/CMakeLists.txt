@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(GeekBrains_C_plus_OOP_HomeWork_6)
+project(GeekBrains_C_plus_OOP_HomeWork_7)
 
 file(GLOB sources "source/*.cpp")
 
