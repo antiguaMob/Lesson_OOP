@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: GeekBrains_C_plus_OOP_HomeWork_6
+# Project: GeekBrains_C_plus_OOP_HomeWork_7
 # Configuration: Debug
 # =============================================================================
 
@@ -29,55 +29,55 @@ ninja_required_version = 1.5
 
 include rules.ninja
 
+# =============================================================================
+# Object build statements for EXECUTABLE target GeekBrains_C_plus_OOP_HomeWork_7
+
+
+#############################################
+# Order-only phony target for GeekBrains_C_plus_OOP_HomeWork_7
+
+build cmake_object_order_depends_target_GeekBrains_C_plus_OOP_HomeWork_7: phony || CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_7.dir
+build CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_7.dir\source\main.cpp.obj: CXX_COMPILER__GeekBrains_C_plus_OOP_HomeWork_7 ..\..\..\source\main.cpp || cmake_object_order_depends_target_GeekBrains_C_plus_OOP_HomeWork_7
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /ZI /Ob0 /Od /RTC1 /JMC
+  INCLUDES = -I..\..\..\include
+  OBJECT_DIR = CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_7.dir
+  OBJECT_FILE_DIR = CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_7.dir\source
+  TARGET_COMPILE_PDB = CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_7.dir\
+  TARGET_PDB = GeekBrains_C_plus_OOP_HomeWork_7.pdb
+
+# =============================================================================
+# Link build statements for EXECUTABLE target GeekBrains_C_plus_OOP_HomeWork_7
+
+
+#############################################
+# Link the executable GeekBrains_C_plus_OOP_HomeWork_7.exe
+
+build GeekBrains_C_plus_OOP_HomeWork_7.exe: CXX_EXECUTABLE_LINKER__GeekBrains_C_plus_OOP_HomeWork_7 CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_7.dir\source\main.cpp.obj
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /ZI /Ob0 /Od /RTC1 /JMC
+  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
+  LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  OBJECT_DIR = CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_7.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_7.dir\
+  TARGET_FILE = GeekBrains_C_plus_OOP_HomeWork_7.exe
+  TARGET_IMPLIB = GeekBrains_C_plus_OOP_HomeWork_7.lib
+  TARGET_PDB = GeekBrains_C_plus_OOP_HomeWork_7.pdb
 
 #############################################
 # Utility command for edit_cache
 
 build CMakeFiles\edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D D:\Repos\GeekBrains_C_++_OOP\GeekBrains_C_plus_OOP_HomeWork_6\out\build\x64-Debug && "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D D:\Repos\Lesson_OOP\GeekBrains_C_plus_OOP_HomeWork_7\out\build\x64-Debug && "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 build edit_cache: phony CMakeFiles\edit_cache.util
-# =============================================================================
-# Object build statements for EXECUTABLE target GeekBrains_C_plus_OOP_HomeWork_6
-
-
-#############################################
-# Order-only phony target for GeekBrains_C_plus_OOP_HomeWork_6
-
-build cmake_object_order_depends_target_GeekBrains_C_plus_OOP_HomeWork_6: phony || CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_6.dir
-build CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_6.dir\source\main.cpp.obj: CXX_COMPILER__GeekBrains_C_plus_OOP_HomeWork_6 ..\..\..\source\main.cpp || cmake_object_order_depends_target_GeekBrains_C_plus_OOP_HomeWork_6
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /ZI /Ob0 /Od /RTC1 /JMC
-  INCLUDES = -I..\..\..\include
-  OBJECT_DIR = CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_6.dir
-  OBJECT_FILE_DIR = CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_6.dir\source
-  TARGET_COMPILE_PDB = CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_6.dir\
-  TARGET_PDB = GeekBrains_C_plus_OOP_HomeWork_6.pdb
-
-# =============================================================================
-# Link build statements for EXECUTABLE target GeekBrains_C_plus_OOP_HomeWork_6
-
-
-#############################################
-# Link the executable GeekBrains_C_plus_OOP_HomeWork_6.exe
-
-build GeekBrains_C_plus_OOP_HomeWork_6.exe: CXX_EXECUTABLE_LINKER__GeekBrains_C_plus_OOP_HomeWork_6 CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_6.dir\source\main.cpp.obj
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /ZI /Ob0 /Od /RTC1 /JMC
-  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
-  LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
-  OBJECT_DIR = CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_6.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_6.dir\
-  TARGET_FILE = GeekBrains_C_plus_OOP_HomeWork_6.exe
-  TARGET_IMPLIB = GeekBrains_C_plus_OOP_HomeWork_6.lib
-  TARGET_PDB = GeekBrains_C_plus_OOP_HomeWork_6.pdb
 
 #############################################
 # Utility command for rebuild_cache
 
 build CMakeFiles\rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D D:\Repos\GeekBrains_C_++_OOP\GeekBrains_C_plus_OOP_HomeWork_6\out\build\x64-Debug && "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:\Repos\GeekBrains_C_++_OOP\GeekBrains_C_plus_OOP_HomeWork_6 -BD:\Repos\GeekBrains_C_++_OOP\GeekBrains_C_plus_OOP_HomeWork_6\out\build\x64-Debug"
+  COMMAND = cmd.exe /C "cd /D D:\Repos\Lesson_OOP\GeekBrains_C_plus_OOP_HomeWork_7\out\build\x64-Debug && "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SD:\Repos\Lesson_OOP\GeekBrains_C_plus_OOP_HomeWork_7 -BD:\Repos\Lesson_OOP\GeekBrains_C_plus_OOP_HomeWork_7\out\build\x64-Debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -85,7 +85,7 @@ build rebuild_cache: phony CMakeFiles\rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
-build GeekBrains_C_plus_OOP_HomeWork_6: phony GeekBrains_C_plus_OOP_HomeWork_6.exe
+build GeekBrains_C_plus_OOP_HomeWork_7: phony GeekBrains_C_plus_OOP_HomeWork_7.exe
 # =============================================================================
 # Folder targets.
 
@@ -97,7 +97,7 @@ build GeekBrains_C_plus_OOP_HomeWork_6: phony GeekBrains_C_plus_OOP_HomeWork_6.e
 #############################################
 # The main all target.
 
-build all: phony GeekBrains_C_plus_OOP_HomeWork_6.exe
+build all: phony GeekBrains_C_plus_OOP_HomeWork_7.exe
 
 #############################################
 # Make the all target the default.
