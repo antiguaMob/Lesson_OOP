@@ -11,95 +11,121 @@
 using namespace std;
 
 //*******************************************************************************************************************************************
-class Fruit {
+class Fraction {
 protected:
-	string name;
-	string color;
-   
-public:
-    Fruit(string n = "", string c = ""): name(n) ,color(c) {
-   
-    }
-
-    ~Fruit(){
-
-    }
-	string getName() const {
-
-		return name;
-	}
-
-	string getColor() const {
-
-		return color;
-	}
+	int celoe;
+	int chislitel;
+	int znamenatel;
 	
+public:
+	Fraction();
+	~Fraction();
+	virtual void printFraction() = 0;
+	
+	virtual Fraction& operator =  (Fraction& other) = 0;
+	virtual Fraction& operator +  (Fraction& other) = 0;
+	virtual Fraction& operator *  (Fraction& other) = 0;
+	virtual Fraction& operator /  (Fraction& other) = 0;
+	virtual Fraction& operator == (Fraction& other) = 0;
+	virtual Fraction& operator != (Fraction& other) = 0;
+	virtual Fraction& operator <  (Fraction& other) = 0;
+	virtual Fraction& operator >  (Fraction& other) = 0;
+	virtual Fraction& operator <= (Fraction& other) = 0;
+	virtual Fraction& operator >= (Fraction& other) = 0;
+	virtual Fraction& operator -  () = 0;
 };
 //*******************************************************************************************************************************************
-class Apple : public Fruit {
-private:
-
+//   Класс SimpleFraction
+//*******************************************************************************************************************************************
+class SimpleFraction : public Fraction {
+protected:
+	
 public:
-	Apple() {
-		name = "apple";
-		color = "green";
+	SimpleFraction (int c, int z) : Fraction (c, z, 0) {
+	
+	
 	}
-	Apple(string n) {
-		name = "apple";
-		color = n;
+	SimpleFraction();
+	SimpleFraction(SimpleFraction& other);
+	SimpleFraction(int chislitel, int znamenatel);
+
+
+
+
+	SimpleFraction() {
+
 	}
 
-	~Apple() {
+
+	~SimpleFraction() {
 
 	}
 };
 //*******************************************************************************************************************************************
-class Banana : public Fruit {
+SimpleFraction::SimpleFraction()
+{
+	chislitel = 0;
+	znamenatel = 1;
+}
+SimpleFraction::SimpleFraction(SimpleFraction& other)
+{
+	this-> chislitel  = other.chislitel;
+	this-> znamenatel = other.znamenatel;
+}
+
+SimpleFraction::SimpleFraction(int chislitel, int znamenatel)
+{
+	//normalize(numerator, denominator);
+	this->chislitel  = chislitel;
+	this->znamenatel = znamenatel;
+}
+
+
+//*******************************************************************************************************************************************
+//   Класс MixedFraction
+//*******************************************************************************************************************************************
+class MixedFraction : public Fraction {
 private:
-
+	
 public:
-	Banana() {
-		name = "banana";
-		color = "yellow";
+	MixedFraction(int c, int z,int i ) : Fraction(c, z, i) {
+
 	}
 
-	Banana(string n) {
-		name = "banana";
-		color = n;
-	}
-	~Banana() {
+	MixedFraction();
+	MixedFraction(MixedFraction& other);
+	MixedFraction(int chislitel, int znamenatel);
+
+	~MixedFraction() {
 
 	}
 };
 //*******************************************************************************************************************************************
-class  GrannySmith : public Apple {
-private:
+MixedFraction::MixedFraction()
+{
+	celoe = 0;
+	chislitel = 0;
+	znamenatel = 1;
+}
+MixedFraction::MixedFraction(MixedFraction& other)
+{
+	this->celoe = other.celoe;
+	this->chislitel = other.chislitel;
+	this->znamenatel = other.znamenatel;
+}
 
-public:
-	GrannySmith() {
-		name = "Granny Smith apple";
-		color = "green";
-	}
+MixedFraction::MixedFraction(int chislitel, int znamenatel, int celoe)
+{
+	//normalize(numerator, denominator);
+	this->celoe = celoe;
+	this->chislitel = chislitel;
+	this->znamenatel = znamenatel;
+}
 
-	GrannySmith(string n) {
-		name = "Granny Smith apple";
-		color = n;
-	}
-
-	~GrannySmith() {
-
-	}
-};
 //*******************************************************************************************************************************************
 int main(){
 
-Apple a("red");
-Banana b;
-GrannySmith c;
 
-  cout << "My " << a.getName() << " is " << a.getColor() << endl;
-  cout << "My " << b.getName() << " is " << b.getColor() << endl;
-  cout << "My " << c.getName() << " is " << c.getColor() << endl;
 
 system("pause");
 return 0;
