@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
+    "\\include",
     "\\source"
   ],
-  "SelectedNode": "\\source\\main.cpp",
+  "SelectedNode": "\\include\\main.h",
   "PreviewInSolutionExplorer": false
 }
