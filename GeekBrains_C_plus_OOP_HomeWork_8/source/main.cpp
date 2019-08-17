@@ -9,95 +9,94 @@
 using namespace std;
 
 //*******************************************************************************************************************************************
-class Fruit {
+class  Car {
 protected:
-	string name;
-	string color;
+	string company;
+	string model;
    
 public:
-    Fruit(string n = "", string c = ""): name(n) ,color(c) {
-   
+	//Car() {
+	//	company = "";
+	//	model = "";
+	//}
+	Car (string name = "company", string nameID = "model" ): company(name) , model(nameID) {
+		//company = name;
+		//model = nameID;
+		cout << "Parent constructor" << endl;
     }
-
-    ~Fruit(){
-
+    ~Car(){
+		cout << "Parent distructor" << endl;
     }
-	string getName() const {
-
-		return name;
+     virtual string getCompany() const {
+		// cout << company << endl << endl;
+		return company;
 	}
 
-	string getColor() const {
-
-		return color;
+	virtual string getModel() const {
+		//cout << model << endl << endl;
+		return model;
 	}
 	
 };
 //*******************************************************************************************************************************************
-class Apple : public Fruit {
-private:
-
+class PassengerCar : virtual public Car {
+protected:
+	string type;
 public:
-	Apple() {
-		name = "apple";
-		color = "green";
-	}
-	Apple(string n) {
-		name = "apple";
-		color = n;
+	PassengerCar(string n , string m, string p) : Car(n, m), type(p) {
+		cout << "Passenger Car constructor" << endl << endl;
 	}
 
-	~Apple() {
+	~PassengerCar() {
+		cout << "Passenger Car distructor" << endl << endl;
+	}
+	string getType() const {
 
+		return type;
 	}
 };
 //*******************************************************************************************************************************************
-class Banana : public Fruit {
-private:
-
+class Bus : virtual public Car {
+protected:
+	int seats;
 public:
-	Banana() {
-		name = "banana";
-		color = "yellow";
+	Bus (string n, string m, int p) : Car(n, m), seats(p) {
+		cout << "Bus constructor" << endl << endl;
 	}
 
-	Banana(string n) {
-		name = "banana";
-		color = n;
+	~Bus() {
+		cout << "Bus distructor" << endl << endl;
 	}
-	~Banana() {
+	int getSeats() const {
 
-	}
+   	return seats;
+   }
+
 };
 //*******************************************************************************************************************************************
-class  GrannySmith : public Apple {
+class  Minivan : public PassengerCar, public Bus {
 private:
 
 public:
-	GrannySmith() {
-		name = "Granny Smith apple";
-		color = "green";
+	Minivan(string n, string m,string t, int p ) : PassengerCar(n, m, t), Bus(n, m, p), Car(n, m) {
+		cout << "Minivan constructor" << endl << endl;
 	}
 
-	GrannySmith(string n) {
-		name = "Granny Smith apple";
-		color = n;
+	~Minivan() {
+		cout << "Minivan distructor " << endl << endl;
 	}
 
-	~GrannySmith() {
-
-	}
 };
 //*******************************************************************************************************************************************
 int main(){
 
-Apple a("red");
-Banana b;
-GrannySmith c;
+Bus bus("Mercedes"," Integro",45);
+PassengerCar car("BMW", "X5 M","jeep");
+Minivan van("Volkswagen", "Caravelle", "minivan", 12);
 
-  cout << "My " << a.getName() << " is " << a.getColor() << endl;
-  cout << "My " << b.getName() << " is " << b.getColor() << endl;
-  cout << "My " << c.getName() << " is " << c.getColor() << endl;
+  cout << "My " << bus.getCompany() << " is " << bus.getModel() << " number of  seats "<<bus.getSeats()<< endl;
+  cout << "My " << car.getCompany() << " is " << car.getModel() << " type of car "<<car.getType()<< endl;
+  cout << "My " << van.getCompany() << " is " << van.getModel() << " type of car " << van.getType() << " number of  seats " << van.getSeats() << endl;
 
 system("pause");
 return 0;
