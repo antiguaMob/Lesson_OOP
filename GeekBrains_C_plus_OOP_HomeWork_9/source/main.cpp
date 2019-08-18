@@ -21,7 +21,7 @@ protected:
 public:
 	//Fraction();
     Fraction(int c = 0,int z = 1,int i = 0,bool s = false):chislitel(c),znamenatel(z),celoe(i),sign(s) { }
-	//~Fraction();
+	virtual ~Fraction() {}
 	
 	virtual void printFraction () = 0;
 	
