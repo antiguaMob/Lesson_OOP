@@ -10,41 +10,87 @@
 
 using namespace std;
 
+
+
 //*******************************************************************************************************************************************
 class Fraction {
 protected:
 	int celoe;        // целое
 	int chislitel;    // числитель
 	int znamenatel;   // знаменатель
-	bool sign;        // знак( если один  из параметров  отрицательный  - дробь отрицательная,
-	                  // если два аргумента отрицательные ,то дробь положительная).
+	
 public:
-	//Fraction();
-    Fraction(int c = 0,int z = 1,int i = 0,bool s = false):chislitel(c),znamenatel(z),celoe(i),sign(s) { }
+	
+    Fraction(int c = 0,int z = 1,int i = 0) : chislitel(c), znamenatel(z), celoe(i) { }
 	virtual ~Fraction() {}
-	
-	virtual void printFraction () = 0;
-	
-	//virtual Fraction& operator =  (Fraction& other) = 0;
-	//virtual Fraction& operator +  (Fraction& other) = 0;
-	//virtual Fraction& operator *  (Fraction& other) = 0;
-	//virtual Fraction& operator /  (Fraction& other) = 0;
-	//virtual Fraction& operator == (Fraction& other) = 0;
-	//virtual Fraction& operator != (Fraction& other) = 0;
-	//virtual Fraction& operator <  (Fraction& other) = 0;
-	//virtual Fraction& operator >  (Fraction& other) = 0;
-	//virtual Fraction& operator <= (Fraction& other) = 0;
-	//virtual Fraction& operator >= (Fraction& other) = 0;
-	//virtual Fraction& operator -  () = 0;
 
+	int getChislitel()  const { return chislitel; }
+	int getZnamenatel() const { return znamenatel; }
+	virtual void printFraction () = 0;
+	bool isEqual(Fraction const& b) const;
+	bool isLower(Fraction const& b) const;
+    bool isSameDenominator(Fraction const& other) const;
+    int hcf(int a, int b);
+    void reduce();
+	
 	friend void print (Fraction* fraction) {
 		fraction->printFraction();
 	}
 };
+//*******************************************************************************************************************************************
+bool Fraction::isEqual(Fraction const& b) const {
+	return this->chislitel == b.chislitel && this->znamenatel == b.znamenatel;
+}
 
-//void print(Fraction* fraction) {
-//	fraction->printFraction();
-//}
+bool Fraction::isLower(Fraction const& b) const {
+	return this->chislitel * b.znamenatel < this->znamenatel * b.chislitel;
+}
+
+bool Fraction::isSameDenominator(Fraction const& other) const {
+	return this->znamenatel == other.znamenatel;
+}
+
+int Fraction::hcf(int a, int b) {
+	while (b != 0) {
+
+		const int t = b;
+		b = a % b;
+		a = t;
+	}
+	return a;
+}
+
+void Fraction::reduce() {                                //  Упрощение дроби 
+	int number = hcf(this->chislitel, this->znamenatel);
+	this->chislitel /= number;
+	this->znamenatel /= number;
+}
+
+//*******************************************************************************************************************************************
+// Равенство
+bool operator== (Fraction const& a, Fraction const& b) {
+	return a.isEqual(b);
+}
+// Не равенство
+bool operator!= (Fraction const& a, Fraction const& b) {
+	return !(a == b);
+}
+//  Меньше 
+bool operator< (Fraction const& a, Fraction const& b) {
+	return a.isLower(b);
+}
+//  Больше
+bool operator> (Fraction const& a, Fraction const& b) {
+	return !(a.isLower(b));
+}
+// Меньше или равно
+bool operator<= (Fraction const& a, Fraction const& b) {
+	return !(b.isLower(a));
+}
+// Больше или равно
+bool operator>= (Fraction const& a, Fraction const& b) {
+	return !(a.isLower(b));
+}
 //*******************************************************************************************************************************************
 //   Класс SimpleFraction
 //*******************************************************************************************************************************************
@@ -52,9 +98,7 @@ class SimpleFraction : public Fraction {
 protected:
 	
 public:
-	//SimpleFraction (int c, int z) : Fraction (c, z, 0) { }
 
-	//SimpleFraction();
 	SimpleFraction(SimpleFraction& other);
 	SimpleFraction(int chislitel, int znamenatel);
 
@@ -63,36 +107,160 @@ public:
 	~SimpleFraction() {
 
 	}
-	
+
+	//bool isEqual(SimpleFraction const& b) const;
+	//bool isLower(SimpleFraction const& b) const;
+	//bool isSameDenominator(SimpleFraction const& other) const;
+	//int hcf(int a, int b);
+	//void reduce();
+	//int getChislitel()  const { return chislitel;  }
+	//int getZnamenatel() const { return znamenatel; }
+
+	SimpleFraction operator- ();
+
 };
 
 //*******************************************************************************************************************************************
-//SimpleFraction::SimpleFraction() {
-//	chislitel  = 0;
-//	znamenatel = 1;
-//	celoe = 0;
-//	sign = false;
-//    }
-
 SimpleFraction::SimpleFraction(SimpleFraction& other) {
 	this->celoe = other.celoe;
 	this-> chislitel  = other.chislitel;
 	this-> znamenatel = other.znamenatel;
-	this->sign = other.sign;
 }
 
 SimpleFraction::SimpleFraction(int chislitel, int znamenatel) {
-	//normalize(numerator, denominator);
-	this->chislitel  = chislitel;
-	this->znamenatel = znamenatel;
-	this->celoe = 0;
-	this->sign = false;
+	try {
+		if (znamenatel != 0)
+		{
+	        int sign = chislitel * znamenatel / abs( chislitel * znamenatel );   // -1 если отрицательное , 1 если положительное.
+	        znamenatel = abs ( znamenatel );                                     // Удаление знака из знаменателя
+	        chislitel  = sign * abs(chislitel);
+			this->chislitel  = chislitel;
+			this->znamenatel = znamenatel;
+			//this->celoe = 0;
+}
+		else throw exception("Знаменатель дроби равен 0. 'Деление на 0 не допустимо.'\n");
+	}
+	catch (const exception& e)
+	{
+		cout << e.what();
+		exit(0);
+	}
 }
 
 void SimpleFraction::printFraction() {
+	
 	cout << chislitel<< " / "<< znamenatel << endl;
 }
+//*******************************************************************************************************************************************
+//  Унарный минус
+SimpleFraction SimpleFraction::operator- () {
+	return SimpleFraction(-1 * this->chislitel, this->znamenatel);
+}
 
+// Сложение
+SimpleFraction operator+ (const SimpleFraction& a, const Fraction& b) {
+
+	return SimpleFraction((a.getChislitel() * b.getZnamenatel() + a.getZnamenatel() * b.getChislitel()), (a.getZnamenatel() * b.getZnamenatel()));
+}
+// Умножение
+SimpleFraction operator*(SimpleFraction const& a, Fraction const& b) {
+
+	return SimpleFraction((a.getChislitel() * b.getChislitel()), (a.getZnamenatel() * b.getZnamenatel()));
+
+}
+//  Деление
+SimpleFraction operator/ (SimpleFraction const& a, Fraction const& b) {
+
+	return SimpleFraction((a.getChislitel() * b.getZnamenatel()), (a.getZnamenatel() * b.getChislitel()));
+
+}
+// Вычитание
+SimpleFraction operator- (const SimpleFraction& a, const Fraction& b) {
+
+	return SimpleFraction((a.getChislitel() * b.getZnamenatel() - a.getZnamenatel() * b.getChislitel()), (a.getZnamenatel() * b.getZnamenatel()));
+}
+////*******************************************************************************************************************************************
+////  Унарный минус
+//SimpleFraction SimpleFraction::operator- () {
+//	return SimpleFraction(-1 *this->chislitel,this->znamenatel);
+//}
+//
+//// Сложение
+//SimpleFraction operator+ (const SimpleFraction& a, const SimpleFraction& b) {
+//
+//	return SimpleFraction ((a.getChislitel() * b.getZnamenatel() + a.getZnamenatel() * b.getChislitel() ), (a.getZnamenatel() * b.getZnamenatel() ));
+//}
+//// Умножение
+//SimpleFraction operator*(SimpleFraction const& a, SimpleFraction const& b) {              
+//
+//	return SimpleFraction((a.getChislitel() * b.getChislitel() ), (a.getZnamenatel() * b.getZnamenatel() ));
+//
+//}
+////  Деление
+//SimpleFraction operator/ (SimpleFraction const& a, SimpleFraction const& b) {                
+//
+//	return SimpleFraction((a.getChislitel() * b.getZnamenatel()), (a.getZnamenatel() * b.getChislitel() ));
+//
+//}
+//// Вычитание
+//SimpleFraction operator- (const SimpleFraction& a, const SimpleFraction& b) {
+//
+//	return SimpleFraction((a.getChislitel() * b.getZnamenatel() - a.getZnamenatel() * b.getChislitel()), (a.getZnamenatel() * b.getZnamenatel() ));
+//}
+//*******************************************************************************************************************************************
+//// Равенство
+//bool operator== (SimpleFraction const& a, SimpleFraction const& b) {
+//	return a.isEqual(b);
+//}
+//// Не равенство
+//bool operator!= (SimpleFraction const& a, SimpleFraction const& b) {
+//	return !(a == b);
+//}
+////  Меньше 
+//bool operator< (SimpleFraction const& a, SimpleFraction const& b) {
+//	return a.isLower(b);
+//}
+////  Больше
+//bool operator> (SimpleFraction const& a, SimpleFraction const& b) {
+//	return !(a.isLower(b));
+//}
+//// Меньше или равно
+//bool operator<= (SimpleFraction const& a, SimpleFraction const& b) {
+//	return !(b.isLower(a));
+//}
+//// Больше или равно
+//bool operator>= (SimpleFraction const& a, SimpleFraction const& b) {
+//	return !(a.isLower(b));
+//}
+//*******************************************************************************************************************************************
+//*******************************************************************************************************************************************
+//bool SimpleFraction::isEqual(SimpleFraction const& b) const {
+//	return this->chislitel == b.chislitel && this->znamenatel == b.znamenatel;
+//}
+//
+//bool SimpleFraction::isLower(SimpleFraction const& b) const {
+//	return this->chislitel * b.znamenatel < this->znamenatel * b.chislitel;
+//}
+//
+//bool SimpleFraction::isSameDenominator(SimpleFraction const& other) const {
+//	return this->znamenatel == other.znamenatel;
+//}
+//
+//int SimpleFraction::hcf(int a, int b) {
+//	while (b != 0) {
+//
+//		const int t = b;
+//		b = a % b;
+//		a = t;
+//	}
+//	return a;
+//}
+//
+//void SimpleFraction::reduce() {                                //  Упрощение дроби 
+//	int number = hcf(this->chislitel, this->znamenatel);
+//	this->chislitel /= number;
+//	this->znamenatel /= number;
+//}
 //*******************************************************************************************************************************************
 //   Класс MixedFraction
 //*******************************************************************************************************************************************
@@ -100,45 +268,183 @@ class MixedFraction : public Fraction {
 private:
 	
 public:
-	//MixedFraction(int c, int z,int i ) : Fraction(c, z, i) { }
-	//MixedFraction();
-	MixedFraction(MixedFraction& other);
-	MixedFraction(int chislitel, int znamenatel, int celoe);
 
+	MixedFraction(MixedFraction& other);
+	MixedFraction(int celoe ,int chislitel, int znamenatel);
+	MixedFraction(int chislitel, int znamenatel);
 	void printFraction();
 
 	~MixedFraction() {
 
 	}
-	
+
+	//bool isEqual(MixedFraction const& b) const;
+	//bool isLower(MixedFraction const& b) const;
+	//bool isSameDenominator(MixedFraction const& other) const;
+	//int hcf(int a, int b);
+	//void reduce();
+	//int getChislitel()  const { return chislitel; }
+	//int getZnamenatel() const { return znamenatel; }
+
+	MixedFraction operator- ();
 };
 //*******************************************************************************************************************************************
-//MixedFraction::MixedFraction() {
-//	chislitel = 0;
-//	znamenatel = 1;
-//	celoe = 0;
-//	sign = false;
-//}
-
 MixedFraction::MixedFraction(MixedFraction& other) {
+
 	this->celoe = other.celoe;
 	this->chislitel = other.chislitel;
 	this->znamenatel = other.znamenatel;
-	this->sign = other.sign;
+}
+MixedFraction::MixedFraction(int chislitel, int znamenatel) {
+	try {
+		if (znamenatel != 0)
+		{
+			int sign = chislitel * znamenatel / abs(chislitel * znamenatel);   // -1 если отрицательное , 1 если положительное.
+			znamenatel = abs(znamenatel);                                     // Удаление знака из знаменателя
+			chislitel = sign * abs(chislitel);
+			this->chislitel = chislitel;
+			this->znamenatel = znamenatel;
+			//this->celoe = 0;
+		}
+		else throw exception("Знаменатель дроби равен 0. 'Деление на 0 не допустимо.'\n");
+	}
+	catch (const exception& e)
+	{
+		cout << e.what();
+		exit(0);
+	}
 }
 
-MixedFraction::MixedFraction(int chislitel, int znamenatel, int celoe) {
-	//normalize(numerator, denominator);
-	this->celoe = celoe;
-	this->chislitel = chislitel;
-	this->znamenatel = znamenatel;
-	this->sign = false;
+MixedFraction::MixedFraction(int celoe, int chislitel, int znamenatel) {
+	//this->sign = normalize(chislitel, znamenatel, celoe);
+	try {
+		if (znamenatel != 0)
+		{
+			//cout << 10 / znamenatel << "\n";
+
+		   int sign = chislitel  * znamenatel / abs(chislitel  * znamenatel);   // -1 если отрицательное , 1 если положительное.
+		   znamenatel = abs(znamenatel);                                                         // Удаление знака из знаменателя
+		   if (celoe < 0) sign == -1 ? 1 : -1 ;
+		   chislitel = sign * (abs(chislitel) + abs(celoe*znamenatel));
+		   this->chislitel = sign*chislitel;
+		   this->znamenatel = znamenatel;		
+		}
+		else throw exception("Знаменатель дроби равен 0. 'Деление на 0 не допустимо.'\n");
+	}
+	catch (const exception& e)
+	{
+		cout << e.what();
+		exit(0);
+	}
 }
 
 void MixedFraction::printFraction() {
-	cout <<celoe<<" "<< chislitel << " / " << znamenatel << endl;
+	//if (sign) cout << "- ";
+	cout << chislitel << " / " << znamenatel << endl;
 }
+////*******************************************************************************************************************************************
+//  Унарный минус
+MixedFraction MixedFraction::operator- () {
+	return MixedFraction(-1 * this->chislitel, this->znamenatel);
+}
+// Сложение Fraction* fraction
+MixedFraction operator+ (const Fraction& a, const Fraction& b) {
 
+	return MixedFraction((a.getChislitel() * b.getZnamenatel() + a.getZnamenatel() * b.getChislitel()), (a.getZnamenatel() * b.getZnamenatel()));
+}
+// Умножение Fraction* fraction
+MixedFraction operator*(Fraction const& a, Fraction const& b) {
+
+	return MixedFraction((a.getChislitel() * b.getChislitel()), (a.getZnamenatel() * b.getZnamenatel()));
+
+}
+//  Деление
+MixedFraction operator/ (Fraction const& a, Fraction const& b) {
+
+	return MixedFraction((a.getChislitel() * b.getZnamenatel()), (a.getZnamenatel() * b.getChislitel()));
+
+}
+// Вычитание
+MixedFraction operator- (const Fraction& a, const Fraction& b) {
+
+	return MixedFraction((a.getChislitel() * b.getZnamenatel() - a.getZnamenatel() * b.getChislitel()), (a.getZnamenatel() * b.getZnamenatel()));
+}
+//// Сложение
+//MixedFraction operator+ (const MixedFraction& a, const MixedFraction& b) {
+//
+//	return MixedFraction((a.getChislitel() * b.getZnamenatel() + a.getZnamenatel() * b.getChislitel()), (a.getZnamenatel() * b.getZnamenatel()));
+//}
+//// Умножение
+//MixedFraction operator*(MixedFraction const& a, MixedFraction const& b) {
+//
+//	return MixedFraction((a.getChislitel() * b.getChislitel()), (a.getZnamenatel() * b.getZnamenatel()));
+//
+//}
+////  Деление
+//MixedFraction operator/ (MixedFraction const& a, MixedFraction const& b) {
+//
+//	return MixedFraction((a.getChislitel() * b.getZnamenatel()), (a.getZnamenatel() * b.getChislitel()));
+//
+//}
+//// Вычитание
+//MixedFraction operator- (const MixedFraction& a, const MixedFraction& b) {
+//
+//	return MixedFraction((a.getChislitel() * b.getZnamenatel() - a.getZnamenatel() * b.getChislitel()), (a.getZnamenatel() * b.getZnamenatel()));
+//}
+
+//// Равенство
+//bool operator== (MixedFraction const& a, MixedFraction const& b) {
+//	return a.isEqual(b);
+//}
+//// Не равенство
+//bool operator!= (MixedFraction const& a, MixedFraction const& b) {
+//	return !(a == b);
+//}
+////  Меньше 
+//bool operator< (MixedFraction const& a, MixedFraction const& b) {
+//	return a.isLower(b);
+//}
+////  Больше
+//bool operator> (MixedFraction const& a, MixedFraction const& b) {
+//	return !(a.isLower(b));
+//}
+//// Меньше или равно
+//bool operator<= (MixedFraction const& a, MixedFraction const& b) {
+//	return !(b.isLower(a));
+//}
+//// Больше или равно
+//bool operator>= (MixedFraction const& a, MixedFraction const& b) {
+//	return !(a.isLower(b));
+//}
+//*******************************************************************************************************************************************
+//*******************************************************************************************************************************************
+//bool MixedFraction::isEqual(MixedFraction const& b) const {
+//	return this->chislitel == b.chislitel && this->znamenatel == b.znamenatel;
+//}
+//
+//bool MixedFraction::isLower(MixedFraction const& b) const {
+//	return this->chislitel * b.znamenatel < this->znamenatel * b.chislitel;
+//}
+//
+//bool MixedFraction::isSameDenominator(MixedFraction const& other) const {
+//	return this->znamenatel == other.znamenatel;
+//}
+//
+//int MixedFraction::hcf(int a, int b) {
+//	while (b != 0) {
+//
+//		const int t = b;
+//		b = a % b;
+//		a = t;
+//	}
+//	return a;
+//}
+//
+//void MixedFraction::reduce() {                                //  Упрощение дроби 
+//	int number = hcf(this->chislitel, this->znamenatel);
+//	this->chislitel /= number;
+//	this->znamenatel /= number;
+//}
 //*******************************************************************************************************************************************
 int main(){
 	setlocale(LC_ALL, "rus");
@@ -147,10 +453,9 @@ int main(){
 //   Создание простой дроби
 //*******************************************************************************************************************************************
 	SimpleFraction frac1( 1, 2);    // Дробь  =   1 / 2
-	SimpleFraction frac2( 2, 4);    // Дробь  =   2 / 4
+	SimpleFraction frac2( 3, 4);    // Дробь  =   2 / 4
 	SimpleFraction frac3( 3,-8);    // Дробь  = - 3 / 8
 	SimpleFraction frac4(-2, 4);    // Дробь  = - 2 / 4
-	//SimpleFraction frac9();
 //*******************************************************************************************************************************************
 //   Создание смешанной дроби
 //*******************************************************************************************************************************************
@@ -165,21 +470,42 @@ int main(){
 	cout << "Дробь 2: "; print(&frac2);
 	cout << "Дробь 3: "; print(&frac3);
 	cout << "Дробь 4: "; print(&frac4);
+	cout << endl;
 	cout << "Дробь 5: "; print(&frac5);
 	cout << "Дробь 6: "; print(&frac6);
 	cout << "Дробь 7: "; print(&frac7);
 	cout << "Дробь 8: "; print(&frac8);
-	//cout << "Дробь 9: "; print(&frac9);
 	cout << endl;
 //*******************************************************************************************************************************************
 // Проверка равенства	
 //*******************************************************************************************************************************************
-	//cout << "1==1: " << (frac1 == frac1) << endl;  
-	//cout << "1==2: " << (frac1 == frac2) << endl;
-	//cout << "1==3: " << (frac1 == frac3) << endl;
-	//cout << "1==4: " << (frac1 == frac4) << endl;
-
+	cout << "Дробь '1'=='1' : " << (frac1 == frac1) << endl;  
+	cout << "Дробь '1'=='2' : " << (frac1 == frac2) << endl;
+	cout << "Дробь '1'=='3' : " << (frac1 == frac3) << endl;
+	cout << "Дробь '1'=='4' : " << (frac1 == frac4) << endl;
+	cout << endl;
 //*******************************************************************************************************************************************	
+// Математические операции
+//*******************************************************************************************************************************************
+	SimpleFraction frac9 = frac1 + frac3;
+	cout << "Сложение '1' + '3' : "; print(&frac9);
+	               frac9 = frac2 - frac3;
+	cout << "Вычитание '2' + '3': "; print(&frac9);
+	               frac9 = frac4 * frac3;
+	cout << "Умножение '4' + '3': "; print(&frac9);
+	cout << endl;
+	cout << "Проверка унарный минус : "; print(&frac9);
+	frac9 = -frac9;
+	cout << "Унарный минус -'Дробь' : "; print(&frac9);
+//*******************************************************************************************************************************************	
+// Математические операции  с разными дробями
+//*******************************************************************************************************************************************
+	SimpleFraction frac10 = frac1 + frac5;
+	cout << "Сложение '1' + '3' : "; print(&frac10);
+	frac9 = frac2 - frac6;
+	cout << "Вычитание '2' + '3': "; print(&frac9);
+	frac9 = frac4 * frac8;
+	cout << "Умножение '4' + '3': "; print(&frac9);
 
 
 system("pause");
