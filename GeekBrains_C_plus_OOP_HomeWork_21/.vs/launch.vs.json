@@ -1,0 +1,12 @@
+{
+  "version": "0.2.1",
+  "defaults": {},
+  "configurations": [
+    {
+      "type": "default",
+      "project": "CMakeLists.txt",
+      "projectTarget": "GeekBrains_C_plus_OOP_HomeWork_21.exe",
+      "name": "GeekBrains_C_plus_OOP_HomeWork_21.exe"
+    }
+  ]
+}

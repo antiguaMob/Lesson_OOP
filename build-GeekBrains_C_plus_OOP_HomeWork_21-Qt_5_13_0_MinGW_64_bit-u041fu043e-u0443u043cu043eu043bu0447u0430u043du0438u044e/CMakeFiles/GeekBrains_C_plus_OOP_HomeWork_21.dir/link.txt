@@ -1,0 +1,3 @@
+C:\CMake\bin\cmake.exe -E remove -f CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_21.dir/objects.a
+D:\Qt\Tools\mingw730_64\bin\ar.exe cr CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_21.dir/objects.a @CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_21.dir\objects1.rsp
+D:\Qt\Tools\mingw730_64\bin\g++.exe    -Wl,--whole-archive CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_21.dir/objects.a -Wl,--no-whole-archive  -o GeekBrains_C_plus_OOP_HomeWork_21.exe -Wl,--out-implib,libGeekBrains_C_plus_OOP_HomeWork_21.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\GeekBrains_C_plus_OOP_HomeWork_21.dir\linklibs.rsp

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/Repos/Lesson_OOP/GeekBrains_C_plus_OOP_HomeWork_21/include/main.h
+iostream
+-
+vector
+-
+ctime
+-
+algorithm
+-
+
+D:/Repos/Lesson_OOP/GeekBrains_C_plus_OOP_HomeWork_21/source/main.cpp
+main.h
+D:/Repos/Lesson_OOP/GeekBrains_C_plus_OOP_HomeWork_21/source/main.h
+

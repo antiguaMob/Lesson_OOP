@@ -1,0 +1,59 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "GeekBrains_C_plus_OOP_HomeWork_20",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "GeekBrains_C_plus_OOP_HomeWork_20::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-GeekBrains_C_plus_OOP_HomeWork_20-Debug-23332d794358082e02a2.json",
+					"name" : "GeekBrains_C_plus_OOP_HomeWork_20",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/Repos/Lesson_OOP/GeekBrains_C_plus_OOP_HomeWork_20/out/build/x64-Debug",
+		"source" : "D:/Repos/Lesson_OOP/GeekBrains_C_plus_OOP_HomeWork_20"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

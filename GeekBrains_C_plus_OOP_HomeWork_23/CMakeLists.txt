@@ -1,0 +1,9 @@
+cmake_minimum_required(VERSION 3.5)
+
+project(GeekBrains_C_plus_OOP_HomeWork_23)
+
+file(GLOB sources "source/*.cpp")
+
+add_executable(${PROJECT_NAME} ${sources})
+
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
